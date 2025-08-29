@@ -1,155 +1,329 @@
 <!DOCTYPE html>
-<!-- Designined by Kapil -->
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <title>İsmail Eren Duman's Portfolio Website </title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Fontawesome CDN Link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
+<!-- Inspired by Kapil -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>İsmail Eren Duman — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #fbfdff;
+      --surface: #ffffff;
+      --muted: #5b6b77;
+      --accent: #0f76f0;
+      --card-shadow: 0 6px 20px rgba(16,40,70,0.08);
+      --glass: rgba(255,255,255,0.6);
+      --radius: 12px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#f7fbff 0%,var(--bg) 100%);
+      color:#12202b;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      scroll-behavior:smooth;
+    }
+
+    /* header */
+    .site-header{
+      position:fixed;left:0;right:0;top:0;z-index:40;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 20px;backdrop-filter: blur(6px);
+    }
+    .site-brand{display:flex;gap:14px;align-items:center}
+    .logo-link{font-weight:700;color:var(--accent);font-size:20px;text-decoration:none}
+    .nav-toggle{display:none;border:0;background:transparent;font-size:20px;cursor:pointer}
+
+    nav.site-nav{display:flex;gap:18px;align-items:center}
+    nav.site-nav a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px}
+    nav.site-nav a:hover{color:var(--accent)}
+
+    .socials{display:flex;gap:8px;align-items:center}
+    .socials a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;text-decoration:none;background:transparent}
+    .socials img{width:22px;height:22px;display:block}
+
+    /* hero */
+    main{padding-top:84px}
+    .hero{
+      min-height:74vh;display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center;padding:48px 6vw;
+    }
+    .hero-intro{max-width:680px}
+    .greeting{font-weight:600;font-size:18px;color:var(--muted);margin-bottom:8px}
+    .name{font-size:42px;line-height:1;margin:6px 0 10px;font-weight:700}
+    .role{font-size:20px;color:var(--accent);margin-bottom:8px;font-weight:600}
+    .location{color:var(--muted);margin-bottom:18px}
+    .cta-row{display:flex;gap:12px;align-items:center}
+    .btn{display:inline-block;padding:10px 16px;border-radius:10px;font-weight:600;text-decoration:none}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-outline{border:1px solid #d9e6ff;color:var(--accent);background:transparent}
+
+    /* profile card */
+    .profile-card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:22px;display:flex;flex-direction:column;align-items:center;gap:16px}
+    .avatar{width:180px;height:180px;border-radius:12px;object-fit:cover;background:#e9f0ff}
+    .profile-name{font-weight:700}
+    .profile-meta{color:var(--muted);font-size:14px}
+
+    /* sections */
+    section.panel{padding:36px 6vw}
+    .panel .section-title{font-size:22px;font-weight:700;margin-bottom:18px;color:#0f2230}
+
+    /* about */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+    .about-text p{color:var(--muted);margin-bottom:12px}
+
+    /* skills */
+    .skills-list{display:flex;flex-wrap:wrap;gap:12px}
+    .skill-pill{background:linear-gradient(90deg,#f0f6ff, #ffffff);padding:12px 14px;border-radius:999px;font-weight:600;color:var(--accent);box-shadow:0 4px 12px rgba(15,118,240,0.06)}
+    .skill-card{background:var(--surface);padding:18px;border-radius:12px;box-shadow:var(--card-shadow);width:100%;}
+    .prog{height:12px;background:#e6eefc;border-radius:8px;overflow:hidden}
+    .prog > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#3aa0ff);border-radius:8px}
+
+    /* projects */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .project{background:var(--surface);padding:12px;border-radius:10px;box-shadow:var(--card-shadow)}
+    .project img{width:100%;height:140px;object-fit:cover;border-radius:8px}
+
+    /* contact */
+    .contact-card{display:flex;flex-direction:column;gap:12px}
+
+    /* footer */
+    footer.site-footer{padding:20px 6vw;text-align:center;color:var(--muted);font-size:14px}
+
+    /* scroll top button */
+    .scroll-top{position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;width:44px;height:44px;border-radius:10px;display:none;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(15,118,240,0.18);cursor:pointer}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;min-height:68vh;padding:32px 5vw}
+      nav.site-nav{display:none}
+      .nav-toggle{display:inline-block}
+      .profile-card{width:100%}
+      .about-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
 <body>
-  <!-- Move to up button -->
-  <div class="scroll-button">
-    <a href="#home"><i class="fas fa-arrow-up"></i></a>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="site-brand">
+      <a class="logo-link" href="#">İsmail Eren D.</a>
+      <div style="color:var(--muted);font-size:13px">Computer Engineer</div>
+    </div>
+
+    <nav aria-label="Primary" class="site-nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="socials" aria-hidden="true">
+        <a href="https://www.linkedin.com/in/ismail-eren-duman-42b26b191/" target="_blank" rel="noreferrer" title="LinkedIn">
+          <!-- small inline svg for linkedin -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.98 3.5C4.98 4.604 4.06 5.5 2.99 5.5 1.92 5.5 1 4.604 1 3.5 1 2.396 1.92 1.5 2.99 1.5 4.06 1.5 4.98 2.396 4.98 3.5ZM.5 8.5h4.98V23H.5V8.5zM9.5 8.5h4.78v1.99h.07c.66-1.25 2.28-2.59 4.7-2.59 5.03 0 5.95 3.31 5.95 7.62V23h-4.98v-6.73c0-1.61-.03-3.68-2.24-3.68-2.26 0-2.61 1.77-2.61 3.58V23H9.5V8.5z" fill="#0f66c2"/></svg>
+        </a>
+        <a href="https://github.com/fakedupiece" target="_blank" rel="noreferrer" title="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 .5C5.5.5.5 5.6.5 12.1c0 5.1 3.3 9.4 7.9 11-.1-.9-.2-2.3.1-3.3.2-.8 1.4-5.2 1.4-5.2s-.4-.8-.4-2c0-1.8 1-3.1 2.3-3.1 1.1 0 1.6.8 1.6 1.7 0 1-.6 2.5-.9 3.9-.3 1.1.6 2 1.8 2 2.2 0 3.8-2.8 3.8-6.9 0-3.6-2.6-6.1-6.2-6.1-4.2 0-6.8 3.1-6.8 6.3 0 1.2.5 2.5 1.2 3.2.1.1.1.3.1.4 0 .4-.4 1.4-.5 1.6-.2.3-.7.5-1.1.4-1-0.4-1.7-1.5-1.7-2.8 0-2.1 1.6-4.1 4.6-4.1 2.6 0 4 1.9 4 1.9s1.1-3 3.8-3.1c2.9-.1 4.9 2 4.9 5.6 0 3.6-2.7 6.9-6.8 6.9-1.4 0-2.6-.8-3.1-1.7-.1-.2-.4-1-.5-1.2 0 0-1.5-.5-2.6-1.1-.9-.5-1.7-1.2-2.3-2.5C6.8 16.6 6.7 18 6 19c2.1.6 4.6.9 7 0 6.6-2 10.1-8 10.1-14.9C23.5 5.6 18.5.5 12 .5z" fill="#111"/></svg>
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+    </div>
+  </header>
+
+  <div id="mobileMenu" hidden>
+    <nav style="display:flex;flex-direction:column;padding:12px 18px;gap:8px;background:#ffffff;box-shadow:0 8px 26px rgba(0,0,0,0.06);position:fixed;right:18px;top:72px;border-radius:10px">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </div>
-  <!-- navgaition menu -->
-  <nav>
-    <div class="navbar">
-      <div class="logo"><a href="#">Portfolio.</a></div>
-      <ul class="menu">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <div class="cancel-btn">
-            <i class="fas fa-times"></i>
+
+  <main id="main">
+    <section id="home" class="hero" aria-labelledby="homeTitle">
+      <div class="hero-intro">
+        <div class="greeting">Hello — welcome</div>
+        <h1 id="homeTitle" class="name">İsmail Eren <span style="color:var(--accent)">Duman</span></h1>
+        <div class="role">Computer Engineering Student • AI & Web</div>
+        <div class="location">From Türkiye</div>
+        <p style="color:var(--muted);max-width:640px">I build web applications and experiment with machine learning. I enjoy turning research ideas into practical products and contributing to collaborative teams.</p>
+        <div class="cta-row" style="margin-top:18px">
+          <a class="btn btn-primary" href="CV.pdf" download>Download CV</a>
+          <a class="btn btn-outline" href="https://www.linkedin.com/in/ismail-eren-duman-42b26b191/" target="_blank" rel="noreferrer">Contact on LinkedIn</a>
+        </div>
+      </div>
+
+      <aside class="profile-card" aria-label="Profile card">
+        <img class="avatar" src="fotom.png" alt="Portrait of İsmail Eren Duman">
+        <div class="profile-name">İsmail Eren Duman</div>
+        <div class="profile-meta">Computer Engineering — interested in AI, Web & Cloud</div>
+      </aside>
+    </section>
+
+    <section id="about" class="panel" aria-labelledby="aboutTitle">
+      <h2 id="aboutTitle" class="section-title">About</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>Leadership in bringing technical products to life is where I focus my energy. I prefer working on AI-integrated product features, full-stack systems, and reproducible experiments.</p>
+          <p>I'm looking for collaborative environments that follow Agile practices where I can deliver concrete value, learn quickly, and contribute to both engineering and product decisions.</p>
+          <p style="margin-top:8px"><strong>Open to:</strong> internships, research collaborations, and early-career roles.</p>
+        </div>
+        <div>
+          <div style="display:flex;gap:8px;flex-direction:column">
+            <div style="background:var(--surface);padding:16px;border-radius:10px;box-shadow:var(--card-shadow)">
+              <strong>Experience</strong>
+              <div style="color:var(--muted);margin-top:8px">2 internships in software & data projects</div>
+            </div>
+
+            <div style="margin-top:12px" class="skill-card">
+              <div style="font-weight:700;margin-bottom:8px">Core strengths</div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted)"><span>Django / Backend</span><strong>80%</strong></div>
+                  <div class="prog"><span style="width:80%"></span></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted)"><span>Deep Learning / NLP</span><strong>55%</strong></div>
+                  <div class="prog"><span style="width:55%"></span></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted)"><span>Data Analysis</span><strong>70%</strong></div>
+                  <div class="prog"><span style="width:70%"></span></div>
+                </div>
+              </div>
+            </div>
+
           </div>
-      </ul>
-      <p align="right"> 
-        <a href="https://www.linkedin.com/in/ismail-eren-duman-42b26b191/" target="_blank" rel="noreferrer"> <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="bash" width="40" height="40"/> </a>
-        <a href="https://github.com/fakedupiece" target="_blank" rel="noreferrer"> <img src="https://cdn.cdnlogo.com/logos/g/55/github.svg" alt="aws" width="40" height="40"/> </a> 
-    </p>
-    </div>
-    <div class="menu-btn">
-      <i class="fas fa-bars"></i>
-    </div>
-  </nav>
-
-<!-- Home Section Start -->
- <section class="home" id="home">
-   <div class="home-content">
-     <div class="text">
-       <div class="text-one">Hello,</div>
-       <div class="text-two">I am İsmail Eren Duman</div>
-       <div class="text-three">Computer Engineering Student</div>
-       <div class="text-four">From Türkiye</div>
-     </div>
-     <div class="button">
-       <!-- <button>Hire Me </button> -->
-       <!-- <a href="https://www.google.com"><button>Hire Me</button></a> -->
-       <a class="fcc-btn" href="https://www.linkedin.com/in/ismail-eren-duman-42b26b191/">Visit for Recruitment</a>  
-     </div>
-   </div>
- </section>
-
-</div>
-<!-- About Section Start -->
-<section class="about" id="about">
-  <div class="content">
-    <div class="title"><span>About Me</span></div>
-  <div class="about-details">
-    <div class="left">
-      <img src="fotom.png" alt="">
-    </div>
-    <div class="right">
-      <div class="topic">Leadership In Product Development Is My Passion</div>
-      <p>I aim to leverage my experience in the software field to play a pivotal role in technology through AI-integrated product development and problem-solving projects. My goal is to transform my knowledge into practical and innovative products by contributing to both innovation and entrepreneurship. In this direction, I am seeking opportunities in a collaborative and dynamic environment that adheres to Agile principles, where I can accelerate my career and make valuable contributions to my country and the industry. <br> <br>
-      </p>
-      <div class="button">
-        <!-- <button>Download CV</button> -->
-        <a href="CV.pdf"><button>Download CV</button></a>
+        </div>
       </div>
-    </div>
-  </div>
-  </div>
-</section>
+    </section>
 
-<!-- My Skill Section Start -->
-<!-- Section Tag and Other Div will same where we need to put same CSS -->
-<section class="skills" id="skills">
- <div class="content">
-   <div class="title"><span>My Skills</span></div>
-   <div class="skills-details">
-     <div class="text">
-       <div class="topic">Skills Reflects Our Knowledge</div>
-       <p>We know that digital and AI technologies are transforming the world of work and that today’s workforce will need to learn new skills and learn to continually adapt as new occupations emerges.</p>
-       <div class="experience">
-         <div class="num">2</div>
-         <div class="exp">Internship Experience</div>
-       </div>
-     </div>
-     <div class="boxes">
-       <div class="box">
-         <div class="topic">Web Development With Django</div>
-         <div class="per">80%</div>
-       </div>
-       <div class="box">
-         <div class="topic">Artificial Intelligence</div>
-         <div class="per">50%</div>
-       </div>
-       <div class="box">
-         <div class="topic">Debugging</div>
-         <div class="per">70%</div>
-       </div>
-       <div class="box">
-         <div class="topic">Data Analysis</div>
-         <div class="per">70%</div>
-       </div>
-     </div>
-   </div>
- </div>
-</section>
+    <section id="skills" class="panel" aria-labelledby="skillsTitle">
+      <h2 id="skillsTitle" class="section-title">Skills</h2>
+      <div style="display:flex;gap:18px;flex-wrap:wrap">
+        <div style="flex:1;min-width:280px">
+          <div style="margin-bottom:12px;color:var(--muted)">Technologies & tools</div>
+          <div class="skills-list">
+            <div class="skill-pill">Python</div>
+            <div class="skill-pill">PyTorch</div>
+            <div class="skill-pill">Django</div>
+            <div class="skill-pill">PostgreSQL</div>
+            <div class="skill-pill">Docker</div>
+            <div class="skill-pill">HTML/CSS/JS</div>
+          </div>
+        </div>
 
-<!-- Projects Section Start -->
-<section class="projects" id="projects">
-  <div class="content">
-    <div class="title"><span>Projects</span></div>
-  <div class="projects-details">
-    <div class="left">
-      <img src="Poster.png" alt="" style="width: 70%;">
-    </div>
-    <div class="right">
-      <div class="topic">An innovative web project.</div>
-    </div>
-  </div>
-  </div>
-</section>
-  
-<!-- Contact Me section Start -->
-<section class="contact" id="contact">
-  <div class="content">
-    <div class="title"><span>Contact Me</span></div>
-    <div class="text">
-      <div class="topic">Have Any Project?</div>
-      <p>Why wait, lets plan to connect. Connection and community improve engagement, retention, and well-being </p>
-      <div class="button">
-        <!-- <button>Let's Chat</button> -->
-        <a class="fcc-btn" href="https://www.linkedin.com/in/ismail-eren-duman-42b26b191/">Let's Chat</a>
+        <div style="flex:1;min-width:280px">
+          <div style="margin-bottom:12px;color:var(--muted)">Soft / process</div>
+          <div class="skills-list">
+            <div class="skill-pill">Agile</div>
+            <div class="skill-pill">Debugging</div>
+            <div class="skill-pill">Product thinking</div>
+            <div class="skill-pill">Research & experimentation</div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- Footer Section Start -->
-<footer>
-  <div class="text">
-    <span>Sourced By <a href="https://github.com/Kapil987">Kapil</a> | &#169; 2022 All Rights Reserved</span>
-  </div>
-</footer>
+    <section id="projects" class="panel" aria-labelledby="projectsTitle">
+      <h2 id="projectsTitle" class="section-title">Selected projects</h2>
+      <div class="projects-grid">
+        <article class="project">
+          <img src="Poster.png" alt="Project poster placeholder">
+          <h3 style="margin:8px 0 6px">Project: Fact-checking pipeline (research)</h3>
+          <p style="color:var(--muted);font-size:14px">An NLP prototype for claim classification using pretrained models and feature engineering.</p>
+        </article>
 
-  <script src="script.js"></script>
+        <article class="project">
+          <img src="placeholder.png" alt="Project screenshot placeholder">
+          <h3 style="margin:8px 0 6px">Web App: Recruitment Dashboard</h3>
+          <p style="color:var(--muted);font-size:14px">A Django-based HR system with RBAC, notifications and workflows.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="panel" aria-labelledby="contactTitle">
+      <h2 id="contactTitle" class="section-title">Contact</h2>
+      <div class="contact-card" style="max-width:680px">
+        <p style="color:var(--muted)">If you'd like to reach out for internships, collaborations or projects, send a message on LinkedIn or download my CV.</p>
+        <div style="display:flex;gap:10px">
+          <a class="btn btn-primary" href="https://www.linkedin.com/in/ismail-eren-duman-42b26b191/" target="_blank" rel="noreferrer">Message on LinkedIn</a>
+          <a class="btn btn-outline" href="mailto:youremail@example.com">Email</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <span>Sourced and Inspired By <a href="https://github.com/Kapil987">Kapil</a> | &#169; 2022 All Rights Reserved</span>
+  </footer>
+
+  <div class="scroll-top" id="scrollTop" title="Back to top" aria-hidden="true">▲</div>
+
+  <script>
+(function(){
+  const header = document.querySelector('.site-header');
+  const scrollTop = document.getElementById('scrollTop');
+  const navToggle = document.querySelector('.nav-toggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  function onScroll(){
+    const y = window.scrollY || document.documentElement.scrollTop;
+    // sticky header (class added so you can style it in CSS)
+    if(y > 20) header.classList.add('sticky'); else header.classList.remove('sticky');
+    // show/hide scroll-to-top button
+    if(scrollTop) scrollTop.style.display = (y > 200) ? 'flex' : 'none';
+  }
+
+  // init
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // mobile menu toggle
+  if(navToggle && mobileMenu){
+    navToggle.addEventListener('click', ()=>{
+      const isHidden = mobileMenu.hasAttribute('hidden');
+      if(isHidden) mobileMenu.removeAttribute('hidden'); else mobileMenu.setAttribute('hidden', '');
+      navToggle.setAttribute('aria-expanded', String(!isHidden));
+    });
+
+    // close mobile menu when a link inside it is clicked
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', ()=>{
+        mobileMenu.setAttribute('hidden', '');
+        navToggle.setAttribute('aria-expanded','false');
+      });
+    });
+
+    // allow Escape key to close mobile menu
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && !mobileMenu.hasAttribute('hidden')){
+        mobileMenu.setAttribute('hidden','');
+        navToggle.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  // scroll-top button behavior
+  if(scrollTop){
+    scrollTop.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+})();
+</script>
 </body>
 </html>
+
+
